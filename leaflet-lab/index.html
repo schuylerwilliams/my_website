@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8 />
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		
+		<!-- Link mapbox css (built off leaflet css) -->
+		<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+		
+		<!-- Link custom css -->
+		<link href='css/style.css' rel='stylesheet' />
+	</head>
+<body>
+	<!-- Map Container -->
+	<div id='map'></div>
+	
+	<!-- Link mapbox js (built off leaflet js) -->
+	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+	<!-- Link omnivore js (used for displaying csv data) -->
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+	
+	<!-- custom JS -->
+	<!--<script type="text/javascript" src="js/geojson.js">-->
+	
+	<!-- Putting script here because I can't get it to work when linking geojson.js, not sure why, it works for other websites I've created -->
+	<script>
+		// Access ID
+		L.mapbox.accessToken = 'pk.eyJ1Ijoic2t5d2lsbGlhbXMiLCJhIjoibUI4TlByNCJ9.9UuhBU3ElNiesrd-BcTdPQ';
+		
+		// Create map
+		var map = L.mapbox.map('map', 'mapbox.streets')
+    	.setView([38, -95], 4);
+	
+		// Display data
+		omnivore.csv('/leaflet-lab/data/MegaCities.csv').addTo(map);
+		
+		// The files need to be run on a server, does not work with local files
+	</script>
+	
+</body>
+</html>
