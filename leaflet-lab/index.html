@@ -16,26 +16,11 @@
 	
 	<!-- Link mapbox js (built off leaflet js) -->
 	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
-	<!-- Link omnivore js (used for displaying csv data) -->
-	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
-	
-	<!-- custom JS -->
-	<!--<script type="text/javascript" src="js/geojson.js">-->
-	
-	<!-- Putting script here because I can't get it to work when linking geojson.js, not sure why, it works for other websites I've created -->
-	<script>
-		// Access ID
-		L.mapbox.accessToken = 'pk.eyJ1Ijoic2t5d2lsbGlhbXMiLCJhIjoibUI4TlByNCJ9.9UuhBU3ElNiesrd-BcTdPQ';
+	<!-- Link megaCities js file, which contain megacities geojson -->
+	<script type="text/javascript" src="data/megaCities.js"></script>
+	<!-- link geojson custom js -->
+	<script type="text/javascript" src="js/geojson.js"></script>
 		
-		// Create map
-		var map = L.mapbox.map('map', 'mapbox.streets')
-    	.setView([38, -95], 4);
-	
-		// Display data
-		omnivore.csv('/leaflet-lab/data/MegaCities.csv').addTo(map);
-		
-		// The files need to be run on a server, does not work with local files
-	</script>
 	
 </body>
 </html>
