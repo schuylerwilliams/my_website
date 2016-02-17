@@ -16,10 +16,35 @@ var markerOptions = {
 
 
 // add megaCities geojson feature to map
-L.geoJson(megaCities, {
+/*L.geoJson(megaCities, {
 	// use pointToLayer to make circles from points
 	pointToLayer: function (feature, latlng) {
 		return L.circleMarker(latlng, markerOptions);
 	}
 }).addTo(map);
+*/
 
+
+
+// use .loadURL to use AJAX to add geojson feature to map
+var featureLayer = L.mapbox.featureLayer()
+	.loadURL('/data/megaCities.geojson', {
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, markerOptions);
+		}
+	})
+	.addTo(map);
+
+
+/*
+$.ajax('/data/megaCities.geojson', {
+	dataType: "json",
+	success: function(response) {
+		L.geoJson(response, {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, markerOptions);
+			}
+		}).addTo(map);
+	}
+});
+*/
