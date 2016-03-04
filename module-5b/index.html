@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8 />
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		
+		<!-- Link mapbox GL css -->
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.1/mapbox-gl.css' rel='stylesheet' />
+		<!-- Link font awesome css -->
+		<link href='lib/font-awesome/css/font-awesome.min.css" rel='stylesheet' />
+		<!-- Link custom css -->
+		<link href='css/style.css' rel='stylesheet' />
+		
+
+	</head>
+<body>
+
+	<!-- Info Panel -->
+	<div id='info'>
+		<h1>Revolution:</h1>
+		<h1>Light-Olution:</h1>
+		<h1>The Dimming of America</h1>
+		<!-- quote, with just the description, but with light pollution and important words bigger -->
+		<!-- paper js space background -->
+		<p>Light pollution is excessive, misdirected, or obtrusive artificial light.</p>
+		<p>It disrupts ecosystems, has adverse health effects on humans (thats you), and wastes energy</p>
+		<p>The map shows the percentage increase of the previous year of light pollution.</p>
+		<p>Light pollution was measured by analyzing imagery from DMSLP-OLS and retrieving excessive radiance values.</p>
+		<p> over 150 images were analyzed to bring you the change of light pollution of 16 cites over 12 years</p>
+		<p>"If people sat outside and looked at the stars each night, I'll bet they'd live a lot differently."</p>
+		<p> - Bill Patterson</p>
+		<p>If only we could Bill, if only we could...</p>
+		<p onclick="moveMenu()" style="font-size: 50px;">!!!Click Here to Go to the Map!!!</p>
+	</div>
+	
+	
+	<!-- Map Container -->
+	<div id='mapContainer'>
+		<!-- Map -->
+		<div id='map'></div>
+		
+		<!-- Slider -->
+		<div class='map-overlay top'>
+    		<div class='map-overlay-inner'>
+        		<div id="sliderInfo" style="font-size: 40px;">2001</div>
+        		<label id='month'></label>
+        		<input id='slider' type='range' min='1' max='12' step='1' value='1' style="width: 100%"/>
+        		<button id="playButton" onclick="initiateAnimation(this.id);" onmouseover="highlightPlayButton(this.id)" onmouseout="resetPlayButton(this.id)">Play</button>
+        		<button id="stopButton" onclick="stopAnimation(this.id);" onmouseover="highlightRepick(this.id)" onmouseout="resetRepick(this.id)">Pause</button>
+    		</div>
+    		<div class='map-overlay-inner'>
+        		<div id='legend' class='legend'>
+            		<p id='infoClick'>Click</p>
+					<p id='infoData'>Data</p>
+					<p onclick="backMenu()" style="cursor: pointer">Menu</p>
+        		</div>
+    		</div>
+		</div>
+		
+		
+		<div id="bottom">
+			<div id="cityInfoPanel">
+			
+			</div>
+			
+			<div id="boxOne">
+				<div id="boxOneCityRight" class="repickButtonNoInter">City: 14%</div>
+				<div class="bar-chart primary" data-total="76" animated>
+					<span id="one2001" class="bar-chart--innerTwo" style="width:76%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart secondary" data-total="42" animated>
+					<span id="one2002" class="bar-chart--innerTwo" style="width:42%;"></span>
+					<!--<p>20</p>-->
+				</div>
+
+				<div class="bar-chart secondary" data-total="42" animated>
+					<span id="one2003" class="bar-chart--innerTwo" style="width:42%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="50" animated>
+					<span id="one2004" class="bar-chart--innerTwo" style="width:50%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="40" animated>
+					<span id="one2005" class="bar-chart--innerTwo" style="width:40%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="30" animated>
+					<span id="one2006" class="bar-chart--innerTwo" style="width:30%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="20" animated>
+					<span id="one2007" class="bar-chart--innerTwo" style="width:20%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="10" animated>
+					<span id="one2008" class="bar-chart--innerTwo" style="width:10%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="60" animated>
+					<span id="one2009" class="bar-chart--innerTwo" style="width:60%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="5" animated>
+					<span id="one2010" class="bar-chart--innerTwo" style="width:5%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="1" animated>
+					<span id="one2011" class="bar-chart--innerTwo" style="width:1%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total=".1" animated>
+					<span id="one2012" class="bar-chart--innerTwo" style="width:.1%;"></span>
+					<!--<p>20</p>-->
+				</div>
+			</div>
+			
+			<!-- on the left -->
+			<div id="infoBoxTwo">
+				<button id="austinTwo" onclick="cityButtonTwoClicked(this.id)" class="buttonCityTwo" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Austin</button>
+				<button id="atlantaTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Atlanta</button>
+				<button id="raleighTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Raleigh</button>
+				<button id="clevelandTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Cleveland</button>
+				<button id="tampaTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Tampa</button>
+				<button id="detroitTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Detroit</button>
+				<button id="bakersfieldTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Bakersfield</button>
+				<button id="denverTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Denver</button>
+				<button id="baltimoreTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Baltimore</button>
+				<button id="portlandTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Portland</button>
+				<button id="indianapolisTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Indianapolis</button>
+				<button id="sanbernardinoTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">San Bernardino</button>
+				<button id="newyorkTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">New York</button>
+				<button id="tulsaTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Tulsa</button>
+				<button id="omahaTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Omaha</button>
+				<button id="madisonTwo" class="buttonCityTwo" onclick="cityButtonTwoClicked(this.id)" onmouseover="cityButtonMouseOverTwo(this.id)" onmouseout="cityButtonMouseOutTwo(this.id)">Madison</button>
+			</div>
+			
+			<div id="infoBoxOne">
+				<button id="austinOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Austin</button>
+				<button id="atlantaOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Atlanta</button>
+				<button id="raleighOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Raleigh</button>
+				<button id="clevelandOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Cleveland</button>
+				<button id="tampaOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Tampa</button>
+				<button id="detroitOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Detroit</button>
+				<button id="bakersfieldOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Bakersfield</button>
+				<button id="denverOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Denver</button>
+				<button id="baltimoreOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Baltimore</button>
+				<button id="portlandOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Portland</button>
+				<button id="indianapolisOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Indianapolis</button>
+				<button id="sanbernardinoOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">San Bernardino</button>
+				<button id="newyorkOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">New York</button>
+				<button id="tulsaOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Tulsa</button>
+				<button id="omahaOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Omaha</button>
+				<button id="madisonOne" class="buttonCityOne" onclick="cityButtonOneClicked(this.id)" onmouseover="cityButtonMouseOverOne(this.id)" onmouseout="cityButtonMouseOutOne(this.id)">Madison</button>
+			</div>
+			
+			<div id="infoBoxThree">
+				<p style="color: white; text-align: center;"> Choose a city from each side then compare </p>
+				<button id="compareButtonMaster" class="button" onclick="showCompare()" style="width: 100%;">Compare</button>
+			</div>
+			
+			<div id="boxThree">
+			
+				<div id="boxThreeSubThree">
+					<div id="repickButton" onclick="hideCompare()" onmouseover="highlightRepick(this.id)" onmouseout="resetRepick(this.id)">Repick</div>
+					<div id="buttonYear2001" class="buttonYear" style="margin-top: 5.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2001</div>
+					<div id="buttonYear2002" class="buttonYear" style="margin-top: 25.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2002</div>
+					<div id="buttonYear2003" class="buttonYear" style="margin-top: 45.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2003</div>
+					<div id="buttonYear2004" class="buttonYear" style="margin-top: 65.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2004</div>
+					<div id="buttonYear2005" class="buttonYear" style="margin-top: 85.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2005</div>
+					<div id="buttonYear2006" class="buttonYear" style="margin-top: 105.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2006</div>
+					<div id="buttonYear2007" class="buttonYear" style="margin-top: 125.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2007</div>
+					<div id="buttonYear2008" class="buttonYear" style="margin-top: 145.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2008</div>
+					<div id="buttonYear2009" class="buttonYear" style="margin-top: 165.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2009</div>
+					<div id="buttonYear2010" class="buttonYear" style="margin-top: 185.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2010</div>
+					<div id="buttonYear2011" class="buttonYear" style="margin-top: 205.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2011</div>
+					<div id="buttonYear2012" class="buttonYear" style="margin-top: 225.5px;" onmouseover="buttonYearMouseOver(this.id)" onmouseout="buttonYearMouseOut(this.id)">2012</div>
+				</div>
+			</div>
+			
+			<div id="boxTwo">
+				<div id="boxTwoCityLeft" class="repickButtonNoInter">City: 20%</div>
+				<div class="bar-chart primary" data-total="76" animated>
+					<span id="two2001" class="bar-chart--inner" style="width:76%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart secondary" data-total="42" animated>
+					<span id="two2002" class="bar-chart--inner" style="width:42%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+
+				<div class="bar-chart secondary" data-total="42" animated>
+					<span id="two2003" class="bar-chart--inner" style="width:42%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="50" animated>
+					<span id="two2004" class="bar-chart--inner" style="width:50%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="40" animated>
+					<span id="two2005" class="bar-chart--inner" style="width:40%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="30" animated>
+					<span id="two2006" class="bar-chart--inner" style="width:30%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="20" animated>
+					<span id="two2007" class="bar-chart--inner" style="width:20%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div id="two2008Bar" class="bar-chart primary" data-total="10" animated>
+					<span id="two2008" class="bar-chart--inner" style="width:10%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="60" animated>
+					<span id="two2009" class="bar-chart--inner" style="width:60%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="5" animated>
+					<span id="two2010" class="bar-chart--inner" style="width:5%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total="1" animated>
+					<span id="two2011" class="bar-chart--inner" style="width:1%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			
+				<div class="bar-chart primary" data-total=".1" animated>
+					<span id="two2012" class="bar-chart--inner" style="width:.1%;"></span>
+					<!--<p style="text-align: right;">20</p>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		
+	
+	
+	
+
+
+	<!-- Link mapbox GL js -->
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.1/mapbox-gl.js'></script>
+	<!-- link geojson custom js -->
+	<script type="text/javascript" src="js/geojsonGL.js"></script>
+	<!-- Link js for compare operator -->
+	<script type="text/javascript" src="js/index.js"></script>
+	<!-- Link js chartData -->
+	<script type="text/javascript" src="js/chartData.js"></script>
+	
+
+	<script>
+		/* Move menu out of the way */
+		function moveMenu() {
+			document.getElementById("info").style.transform = "translate(100%)";
+			document.getElementById("compareButtonMaster").disabled = true;
+			document.getElementById("compareButtonMaster").style.cursor = "not-allowed";
+			document.getElementById("compareButtonMaster").style.opacity = ".6";
+		};
+		
+		/* Move menu back */
+		function backMenu() {
+			document.getElementById("info").style.transform = "translate(0%)";
+		};	
+		
+		function showCompare() {
+			document.getElementById("boxOne").style.transform = "translate(0%, 0%)";
+			document.getElementById("boxTwo").style.transform = "translate(0%, 0%)";
+			document.getElementById("boxThree").style.transform = "translate(0%, 0%)";
+			
+			resetCityButtonOne();
+			resetCityButtonTwo();
+		};
+		
+		function hideCompare() {
+			document.getElementById("boxOne").style.transform = "translate(100%, 0%)";
+			document.getElementById("boxTwo").style.transform = "translate(-100%, 0%)";
+			document.getElementById("boxThree").style.transform = "translate(0%, 120%)";
+			
+			document.getElementById("compareButtonMaster").disabled = true;
+			document.getElementById("compareButtonMaster").style.cursor = "not-allowed";
+			document.getElementById("compareButtonMaster").style.opacity = ".6";
+			
+			compareControlTwo = false;
+			compareControlOne = false;
+		};
+		
+		function highlightRepick(x) {
+			document.getElementById(x).style.background = "#4CAF50";
+		};
+		
+		function highlightPlayButton(x) {
+			if (hoverAnimationControl == false) {
+				document.getElementById(x).style.background = "#4CAF50";
+			} else {
+				return;
+			}
+		};
+		
+		function resetPlayButton(x) {
+			if (hoverAnimationControl == false) {
+				document.getElementById(x).style.background = "";
+			} else {
+				return;
+			}
+		};
+		
+		function resetRepick(x) {
+			document.getElementById(x).style.background = "";
+		};
+		
+	</script>
+
+</body>
+</html>
